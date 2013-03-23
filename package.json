@@ -7,7 +7,7 @@
     "dependencies":      {},
     "devDependencies":   {},
     "keywords":          ["function", "callbacks"],
-    "repository":        "git://github.com/steveukx/callable.js",
+    "repository":        "git://github.com/steveukx/callable",
     "main":              "index",
     "bin":               {},
     "scripts":           {},
