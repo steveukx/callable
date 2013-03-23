@@ -1,0 +1,16 @@
+{
+    "name":              "callable",
+    "description":       "Function manipulation library",
+    "version":           "0.0.1",
+    "author":            "Steve King <steve@mydev.co>",
+    "contributors":      [ { "name": "Steve King", "email": "steve@mydev.co" } ],
+    "dependencies":      {},
+    "devDependencies":   {},
+    "keywords":          ["function", "callbacks"],
+    "repository":        "git://github.com/steveukx/callable.js",
+    "main":              "index",
+    "bin":               {},
+    "scripts":           {},
+    "config":            {},
+    "engines":           { "node": ">= 0.4.1" }
+}
