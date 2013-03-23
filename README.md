@@ -8,7 +8,7 @@ Download and installation
 
 To use in a [node.js](http://nodejs.org) app, install through `npm` command:
 
-    npm install callable
+    npm install fn-callable
 
 To use in a browser, just download the `src/callable.js` script and you're good to go. Callable is also compatible with
 AMD style loaders that use `define` for declaring modules.

@@ -1,5 +1,5 @@
 {
-    "name":              "callable",
+    "name":              "fn-callable",
     "description":       "Function manipulation library",
     "version":           "0.0.1",
     "author":            "Steve King <steve@mydev.co>",
