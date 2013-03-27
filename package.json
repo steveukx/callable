@@ -1,16 +1,27 @@
 {
-    "name":              "fn-callable",
-    "description":       "Function manipulation library",
-    "version":           "0.0.1",
-    "author":            "Steve King <steve@mydev.co>",
-    "contributors":      [ { "name": "Steve King", "email": "steve@mydev.co" } ],
-    "dependencies":      {},
-    "devDependencies":   {},
-    "keywords":          ["function", "callbacks"],
-    "repository":        "git://github.com/steveukx/callable",
-    "main":              "index",
-    "bin":               {},
-    "scripts":           {},
-    "config":            {},
-    "engines":           { "node": ">= 0.4.1" }
+   "name": "fn-callable",
+   "description": "Function manipulation library",
+   "version": "0.0.2",
+   "author": "Steve King <steve@mydev.co>",
+   "contributors": [
+      {
+         "name": "Steve King",
+         "email": "steve@mydev.co"
+      }
+   ],
+   "dependencies": {},
+   "devDependencies": {
+      "unit-test": "*"
+   },
+   "keywords": ["function", "callbacks"],
+   "repository": "git://github.com/steveukx/callable",
+   "main": "index",
+   "bin": {},
+   "scripts": {
+      "test": "node test/runner.js"
+   },
+   "config": {},
+   "engines": {
+      "node": ">= 0.4.1"
+   }
 }

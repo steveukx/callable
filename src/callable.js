@@ -189,7 +189,7 @@
    if (typeof module != "undefined") {
       module.exports = Callable;
    }
-   if (typeof window != undefined) {
+   if (typeof window != "undefined") {
       window.Callable = Callable;
    }
 
