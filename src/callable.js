@@ -119,12 +119,17 @@
     * cancel the `callable` from being called.
     *
     * @param {Function} callable
-    * @param {Object} scope
+    * @param {Object} [scope]
     * @param {Number} timeout
     * @return {Function}
     */
    Callable.defer = function(callable, scope, timeout) {
-      var timerId = setTimeout(bind.call(callable, scope), timeout);
+      if(typeof scope === 'number') {
+         timeout = scope;
+         scope = null;
+      }
+
+      var timerId = setTimeout(scope ? bind.call(callable, scope) : callable, timeout);
       return function() {
          clearTimeout(timerId);
       }
