@@ -118,6 +118,9 @@
     * Calls the supplied function in the `timeout` number of milliseconds. The returned function can be called to
     * cancel the `callable` from being called.
     *
+    * The `scope` parameter is optional, when omitted the `timeout` should be supplied as the second argument in
+    * its place.
+    *
     * @param {Function} callable
     * @param {Object} [scope]
     * @param {Number} timeout
