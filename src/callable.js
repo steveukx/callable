@@ -146,12 +146,18 @@
     * The returned function can be used to prevent the `callable` from being called again.
     *
     * @param {Function} callable
-    * @param {Object} scope
+    * @param {Object} [scope]
     * @param {Number} interval
     * @param {Number} [repetitions]
     * @return {Function}
     */
    Callable.repeat = function(callable, scope, interval, repetitions) {
+      if('number' == typeof scope) {
+         repetitions = interval;
+         interval = scope;
+         scope = this;
+      }
+
       var iterations = 0;
       var intervalId = setInterval(function() {
          callable.call(scope, iterations++, Date.now());

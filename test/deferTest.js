@@ -4,20 +4,21 @@ var Assertions = require('unit-test').Assertions,
     TestCase = require('unit-test').TestCase,
     Callable = require('../src/callable.js');
 
-var Clock;
+var Clock, spy;
 
-module.exports = new TestCase("Delayed Calls", {
+module.exports = new TestCase("Defer Calls", {
 
    setUp: function() {
       Clock = Sinon.useFakeTimers();
+      spy = Sinon.spy();
    },
 
    tearDown: function() {
+      spy = null;
       Clock.restore();
    },
 
    "test delayed calls are not called synchronously": function() {
-      var spy = Sinon.spy();
       Callable.defer(spy, 1);
 
       Assertions.assert(spy.notCalled);
@@ -27,7 +28,6 @@ module.exports = new TestCase("Delayed Calls", {
    },
 
    'test delayed calls are scheduled in milliseconds': function() {
-      var spy = Sinon.spy();
       Callable.defer(spy, 100);
 
       Assertions.assert(spy.notCalled, 'Not called immediately');
@@ -40,7 +40,6 @@ module.exports = new TestCase("Delayed Calls", {
    },
 
    'test delayed calls can be run in a custom scope': function() {
-      var spy = Sinon.spy();
       var customScope = {some: 'scope'};
 
       Callable.defer(spy, customScope, 100);
@@ -53,7 +52,6 @@ module.exports = new TestCase("Delayed Calls", {
    },
 
    'test delayed calls can be canceled': function() {
-      var spy = Sinon.spy();
       var cancel = Callable.defer(spy, 100);
 
       cancel();
