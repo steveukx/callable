@@ -196,6 +196,65 @@
       }, interval || 50), intervalIndex);
    };
 
+   /**
+    * Adds a function to be called after the named function is called on the supplied scope. `Callable.after` can
+    * be called multiple times on the same object instance to create an array of functions that should be called in order
+    * after the original function is run.
+    * To remove the after functions, restore the original by calling `originalFn.restore()`, or use `Callable.restore(originalFn)`
+    *
+    * @param {Object} scope
+    * @param {String} name
+    * @param {Function} callable
+    */
+   Callable.after = function(scope, name, callable) {
+      if(typeof scope[name] !== "function") {
+         throw new TypeError("Callable.after: object does not have a function named " + name);
+      }
+
+      if (scope[name].restore) {
+         (scope[name].__after = scope[name].__after || []).push(callable);
+      }
+      else {
+         var original = scope[name];
+         var isOwnOriginal = scope.hasOwnProperty(name);
+
+         scope[name] = function() {
+            var args = [].slice.call(arguments, 0);
+            var returnVal = original.apply(scope, args);
+            args.push(returnVal);
+            scope[name].__after.forEach(function(after) {
+               after.apply(scope, args);
+            });
+            return returnVal;
+         };
+
+         scope[name].restore = function() {
+            if(isOwnOriginal) {
+               scope[name] = original;
+            }
+            else {
+               delete scope[name];
+            }
+         };
+
+         scope[name].__after = [callable];
+      }
+
+      return scope[name];
+   };
+
+   /**
+    * Attempts to restore the supplied callable. When the callable supplied is not a function, or doesn't have a restore
+    * function, this function has no result.
+    *
+    * @param {Function} callable
+    */
+   Callable.restore = function(callable) {
+      if(typeof callable == "function" && callable.restore) {
+         callable.restore();
+      }
+   };
+
    // export for amd loader, node module and browser window scope
    if (typeof define == "function") {
       define("callable", Callable);
