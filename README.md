@@ -65,4 +65,24 @@ An example of `Callable.delay` in action:
 Using `Callable.delay` in the callback for the window resize event means the `resizeHandler` function will
 only be called once rather than for each pixel change (particularly a problem in old Internet Explorer).
 
+Add AOP style callbacks to be run immediately after another funciton has run. In order for Callable to be able to add
+the callback, this will only work on non-anonymous functions, and as it is a name based replacement, any existing references
+to the function that is being observed will not call the AOP callbacks.
 
+Those caveats aside, it's easy to observe a class instance method:
+
+    function SomeClass() {}
+    SomeClass.prototype.someMethod = function() {};
+
+    var someClass = new SomeClass();
+    Callable.after(someClass, 'someMethod', function() {});
+
+... or even a method on the prototype, to be observed when any instance calls it:
+
+    function SomeClass() {}
+    SomeClass.prototype.someMethod = function() {};
+
+    Callable.after(SomeClass.prototype, 'someMethod', function() {});
+
+AOP callbacks can be added multiple times to the same function without significant memory penalties as all AOP is held
+in one object per scope/function pair.
