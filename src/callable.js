@@ -255,6 +255,31 @@
       }
    };
 
+   /**
+    * Creates a new function that when called will drop any arguments supplied. Useful for cleaning stray arguments from
+    * being sent to a callback function.
+    *
+    * When the optional position argument is supplied, that number of arguments will be forwarded on to the resulting
+    * callable.
+    *
+    * @param {Function} callable
+    * @param {Object} [scope]
+    * @param {Number} [position=0]
+    * @returns {Function}
+    */
+   Callable.dropArgs = function(callable, scope, position) {
+      if(typeof scope === 'number') {
+         position = scope;
+         scope = null;
+      }
+
+      return !isNaN(position) && position ? function() {
+         return callable.apply(scope, [].slice.call(arguments, 0, position));
+      } : function() {
+         return callable.call(scope || this);
+      }
+   };
+
    // export for amd loader, node module and browser window scope
    if (typeof define == "function") {
       define("callable", Callable);

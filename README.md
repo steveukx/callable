@@ -86,3 +86,20 @@ Those caveats aside, it's easy to observe a class instance method:
 
 AOP callbacks can be added multiple times to the same function without significant memory penalties as all AOP is held
 in one object per scope/function pair.
+
+`Callable.dropArgs` can be used to remove unwanted arguments from being passed to a callback. Called with the function
+that is to be wrapped, an optional scope and an optional number of arguments to allow through to the original function:
+
+    function callback(a, b) {
+      console.log(a, b);
+    }
+
+    // fn calls callback with both a and b undefined
+    fn = Callable.dropArgs(callback)
+
+    // fn calls callback with one argument argument, b will always be undefined
+    fn = Callable.dropArgs(callback, 1)
+
+    // fn calls callback in the scope provided with one argument
+    fn = Callable.dropArgs(callback, this, 1)
+
